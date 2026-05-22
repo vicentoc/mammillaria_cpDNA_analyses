@@ -13,10 +13,10 @@ This repository includes the data and scripts generated for the manuscript (prep
 **/bin:** \
 Contain files to assembling and annotated cpDNA from row data sequences. \
 **/metadata:** \
-Contains a csv file with all genebank accesion numbers of row data for species analyzed.\
+Contains a CSV file listing the GenBank accession numbers of the raw sequencing data used for all analyzed species. \
 **/results** \
-Here you can find the annotated chloroplast genomes \
+This directory contains annotated chloroplast genome maps in PNG format (.png). \
 **gb files** \
-Genebank format files (.gb) are available by direct request to the corrsponding author.
+GenBank format files (.gb) are available upon request from the corresponding author.
 
 
