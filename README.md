@@ -11,11 +11,11 @@ Recent publications have shown that the chloroplast genome (cpDNA) is more varia
 This repository includes the data and scripts generated for the manuscript (preprocessing of samples, assembly and chloroplast genome annotation) and is structured in three directories: bin, metadata, results and results. The content of each directory is delailed below. \
 
 **/bin:** \
-Contain files to assembling and annotated cpDNA from row data sequences.
+Contain files to assembling and annotated cpDNA from row data sequences. \
 **/metadata:** \
-Contains a csv file with all genebank accesion numbers of row data for species analyzed.
+Contains a csv file with all genebank accesion numbers of row data for species analyzed.\
 **/results** \
-Here you can find the annotated plastomes
+Here you can find the annotated chloroplast genomes \
 
 **gb files** \
 Genebank format files (.gb) are available by direct request to the corrsponding author.
