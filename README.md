@@ -14,7 +14,7 @@ This repository includes the data and scripts generated for the manuscript (prep
 Contain files to assembling and annotated cpDNA from row data sequences. \
 **/metadata:** \
 Contains a CSV file listing the GenBank accession numbers of the raw sequencing data used for all analyzed species. \
-**/results** \
+**/plastomes_annotated_mammilloyd** \
 This directory contains annotated chloroplast genome maps in PNG format (.png). \
 **gb files** \
 GenBank format files (.gb) are available upon request from the corresponding author.
