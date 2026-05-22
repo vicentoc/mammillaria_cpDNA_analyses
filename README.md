@@ -15,7 +15,7 @@ Contain files to assembling and annotated cpDNA from row data sequences. \
 **/metadata:** \
 Contains a csv file with all genebank accesion numbers of row data for species analyzed.\
 **/results** \
-Here you can find the annotated chloroplast genomes \
+Here you can find the annotated chloroplast genomes 
 
 **gb files** \
 Genebank format files (.gb) are available by direct request to the corrsponding author.
