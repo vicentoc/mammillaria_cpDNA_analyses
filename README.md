@@ -18,7 +18,7 @@ Contains a CSV file listing the GenBank accession numbers of the raw sequencing 
 Contains a Python script for comparing nucleotide sequence identity, length, and gene annotation between the two inverted repeat (IR) regions. \
 **/chloroplast_genomes** \
 This directory contains annotated chloroplast genome maps in PNG format (.png). \
+**/references** \
+This directory contains annotated chloroplast genome maps in genebank and fasta formats dowloaded from genebank. \
 **gb files** \
 GenBank format files (.gb) are available upon request from the corresponding author.
-
-
