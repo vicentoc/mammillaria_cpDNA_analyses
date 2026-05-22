@@ -1,0 +1,242 @@
+#######################################################
+# Step 1: Set envs and create output files and paths #
+#######################################################
+
+# The user should define a path
+
+computer_path="/mammillaria_plastomes_workflow"
+seed="$computer_path/references/mammillaria_supertexta_complete_plastome.fasta"
+
+mkdir -p "$computer_path"
+cd "$computer_path"
+
+#######################################
+# Step 2: Download and check seqs     #
+#######################################
+
+# 2a Create arrays containing GenBank accession numbers
+
+breslin_data=(
+SRR12935149
+SRR12935164
+SRR12935099
+SRR12935157
+SRR12935176
+SRR12935165
+SRR12935151
+SRR12935166
+SRR13416461
+SRR12935150
+SRR12935122
+SRR12935127
+SRR13416462
+SRR12935113
+SRR12935160
+SRR13416463
+SRR12935125
+SRR12935152
+SRR12935103
+SRR12935107
+SRR12935089
+SRR12935112
+SRR12935135
+SRR12935148
+SRR12935092
+SRR12935098
+SRR12935169
+SRR12935094
+SRR13416466
+SRR12935119
+SRR12935170
+SRR12935106
+SRR12935115
+SRR12935108
+SRR12935133
+SRR12935158
+SRR12935138
+SRR12935093
+SRR12935173
+SRR12935091
+SRR12935175
+SRR12935129
+SRR12935121
+SRR12935101
+SRR12935096
+SRR12935111
+SRR12935114
+SRR12935143
+SRR12935141
+SRR13416465
+SRR12935090
+SRR12935123
+SRR12935110
+SRR12935097
+SRR12935140
+SRR12935128
+SRR12935147
+SRR12935137
+SRR12935139
+SRR12935124
+SRR12935163)
+
+chincoya_data=(
+SRR23441695
+SRR23441694
+SRR23441683
+SRR23441652
+SRR23441672
+SRR23441661
+SRR23441651
+SRR23441650
+SRR23441649
+SRR23441648
+SRR23441647
+SRR23441693
+SRR23441691
+SRR23441690
+SRR23441671
+SRR23441688
+SRR23441687
+SRR23441682
+SRR23441681
+SRR23441680
+SRR23441679
+SRR23441678
+SRR23441677
+SRR23441675
+SRR23441674
+SRR23441673
+SRR23441670
+SRR23441669
+SRR23441668
+SRR23441665
+SRR23441664
+SRR23441663
+SRR23441662
+SRR23441660
+SRR23441653
+SRR23441686
+SRR23441689
+SRR23441659
+SRR23441692
+SRR23441658
+SRR23441657
+SRR23441655
+SRR23441654)
+
+
+# 2b Change array name accordingly
+for i in "${chincoya_data[@]}"
+do
+
+# 2c Set working directory
+cd "$computer_path"
+
+echo "Sequencing $i is analyzed"
+
+# 2d Make a directory for each seq
+mkdir -p "$computer_path/seqs/$i"
+
+# 2e Download the seqs
+
+ fasterq-dump "$i" \
+ -O "$computer_path/seqs/$i" \
+  --verbose
+                
+#######################################
+# Step 3: Cleanning seqs              #
+#######################################
+# 3a Make a directory for FastQC results and check read quality
+
+mkdir -p "$computer_path/mammillaria_fastqc/$i"
+
+fastqc \
+    "$computer_path/seqs/$i"/* \
+    -O "$computer_path/mammillaria_fastqc/$i"
+
+
+# 3b Make a directory for cleaned data
+
+mkdir -p "$computer_path/mammillaria_cleanning/$i"
+
+
+# 3c Cleaning and trimming paired-end reads
+
+echo "Cleaning and trimming reads from sequence $i"
+
+trim_galore \
+    --paired \
+    "$computer_path/seqs/$i/${i}_1.fastq" \
+    "$computer_path/seqs/$i/${i}_2.fastq" \
+    --quality 20 \
+    --length 20 \
+    --retain_unpaired \
+    --length_1 21 \
+    --length_2 21 \
+    --clip_R1 10 \
+    --three_prime_clip_R1 20 \
+    --clip_R2 10 \
+    --three_prime_clip_R2 20 \
+    -o "$computer_path/mammillaria_cleanning/$i"
+
+# 3c (For breslin_data)
+
+echo "Cleaning and trimming reads from sequence $i"
+trim_galore \
+    --paired \
+    "$computer_path/seqs/$i/${i}_1.fastq" \
+    "$computer_path/seqs/$i/${i}_2.fastq" \
+    --quality 20 \
+    --length 20 \
+    --clip_R1 5 \
+    --three_prime_clip_R1 5 \
+    --clip_R2 5 \
+    --three_prime_clip_R2 5 \
+    -o "$computer_path/mammillaria_cleanning/$i"
+
+
+# 3d Check quality of trimmed reads
+
+fastqc \
+    "$computer_path/mammillaria_cleanning/$i"/*.fq \
+    -O "$computer_path/mammillaria_fastqc/$i"
+
+##########################################
+#  Step 4:  Chloroplast genome assembly ##
+##########################################
+  
+# 4a Make a directory for organelle assembly
+
+mkdir -p "$computer_path/mammillaria_organelle/$i"
+
+# 4b Paired assembly
+
+echo "Plastome assembly of sequence $i"
+
+get_organelle_from_reads.py \
+    -1 "$computer_path/mammillaria_cleanning/$i/${i}_1_val_1.fq" \
+    -2 "$computer_path/mammillaria_cleanning/$i/${i}_2_val_2.fq" \
+    -s "$seed" \
+    -R 50 \
+    -k 21,33,45,65,85,101,127 \
+    -F embplant_pt \
+    -o "$computer_path/mammillaria_organelle/$i" \
+    --overwrite
+
+echo "Sequence $i assembled!"
+    
+#############################################
+# Step 5: Check quality of the assembly    #
+#############################################
+
+# 5a Check the quality of the assembly graph
+
+echo "Drawing graph for sequence $i"
+
+Bandage image \
+    "$computer_path/mammillaria_organelle/$i"/*selected_graph.gfa \
+    "$computer_path/mammillaria_organelle/$i/${i}_bandage.png"
+
+done
+
+# Finish

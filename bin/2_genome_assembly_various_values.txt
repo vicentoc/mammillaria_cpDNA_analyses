@@ -1,0 +1,30 @@
+for i in "${chincoya_data[@]}"
+do
+
+    echo "Processing $i"
+
+    mkdir -p "$computer_path/mammillaria_organelle/$i"
+
+    for w in 33 40 45 50 55 60 65 70 75 80 85 90 95 100 105 110
+    do
+
+        echo "Assembling $i with w=$w"
+
+        get_organelle_from_reads.py \
+            -1 "$computer_path/mammillaria_cleanning/$i/${i}_1_val_1.fq" \
+            -2 "$computer_path/mammillaria_cleanning/$i/${i}_2_val_2.fq" \
+            -s "$seed" \
+            -R 50 \
+            -k 21,33,45,65,85,101,127 \
+            -w "$w" \
+            -F embplant_pt \
+            -o "$computer_path/mammillaria_organelle/$i/w_${w}" \
+            --overwrite
+
+        Bandage image \
+            "$computer_path/mammillaria_organelle/$i/w_${w}"/*selected_graph.gfa \
+            "$computer_path/mammillaria_organelle/$i/w_${w}/${i}_w${w}_bandage.png"
+
+    done
+
+done

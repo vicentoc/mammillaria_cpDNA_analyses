@@ -1,0 +1,26 @@
+####################################
+# Plastome annotation (PGA)
+####################################
+
+# a) Create a directory for target fasta files
+
+mkdir -p "$computer_path/mammillaria_organelle/$i/target"
+
+# b) Move assembled fasta files to target directory
+
+mv "$computer_path/mammillaria_organelle/$i"/*.fasta \
+   "$computer_path/mammillaria_organelle/$i/target/"
+
+# c) Create annotation output directory
+
+mkdir -p "$computer_path/mammillaria_organelle/$i/annotation_pga"
+
+# d) Annotate plastome with PGA. The /references folder is in the repository.
+
+./PGA.pl \
+    -r "$computer_path/references" \
+    -t "$computer_path/mammillaria_organelle/$i/target" \
+    -i 400 \
+    -p 20 \
+    -q 0.2,2.0 \
+    -o "$computer_path/mammillaria_organelle/$i/annotation_pga"
