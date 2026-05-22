@@ -14,6 +14,8 @@ This repository includes the data and scripts generated for the manuscript (prep
 Contain files to assembling and annotated cpDNA from row data sequences. \
 **/metadata:** \
 Contains a CSV file listing the GenBank accession numbers of the raw sequencing data used for all analyzed species. \
+**/scripts:** \
+Contains a Python script for comparing nucleotide sequence identity, length, and gene annotation between the two inverted repeat (IR) regions. \
 **/chloroplast_genomes** \
 This directory contains annotated chloroplast genome maps in PNG format (.png). \
 **gb files** \
