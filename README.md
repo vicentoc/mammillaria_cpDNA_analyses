@@ -1,7 +1,7 @@
 ## Comparative genomics in cactus
 
 ![](annotated_cpDNA.png) \
-This is the repository associated to the article *Comparative genomics of chloroplast structural evolution in cactus* submitted to *scientific reports*.
+This is the repository associated to the article *Comparative genomics of chloroplast structural evolution in cactus* submitted to [*scientific reports*](https://www.nature.com/srep/).
 
 **Background** \
 *Mammillaria* is the most diverse and emblematic genus within the cactus family (Cactaceae). Consequently, this system provides an excellent framework for elucidating the factors and processes that promote high species diversity. Unfortunately, it is also one of the most threatened cactus genera. The [IUCN](https://www.iucnredlist.org/) currently includes 1,478 taxa of Cactaceae, of which 58 belong to the genus *Mammillaria*. Therefore, immediate efforts are required to ensure the protection and conservation of these species. It is also of great importance to integrate the extensive information generated on their genomic variation, phylogeny, and distribution into innovative evolutionary analyses that can improve our understanding of the processes underlying their diversification and inform conservation strategies.
