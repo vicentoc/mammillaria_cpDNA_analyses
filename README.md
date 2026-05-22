@@ -1,6 +1,6 @@
 ## Comparative genomics in cactus
 
-[annotated_cpDNA.pdf](https://github.com/user-attachments/files/28155501/annotated_cpDNA.pdf) \
+![](annotated_cpDNA.pdf) \
 This is the repository associated to the article *Comparative genomics of chloroplast structural evolution in cactus* under consideration in *Scientific Reports*.
 
 **Background** \
